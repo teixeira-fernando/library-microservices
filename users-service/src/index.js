@@ -1,47 +1,31 @@
-'use strict'
-// we load all the depencies we need
-const {EventEmitter} = require('events')
-const server = require('./server/server')
-const repository = require('./repository/repository')
-const config = require('./config/')
-const mediator = new EventEmitter()
+const express = require('express');
+const { PORT } = require('./config');
+const { databaseConnection } = require('./database');
+const expressApp = require('./express-app');
 
-// verbose logging when we are starting the server
-console.log('--- Users Service ---')
-console.log('Connecting to users repository...')
+const StartServer = async() => {
 
-// log unhandled execpetions
-process.on('uncaughtException', (err) => {
-  console.error('Unhandled Exception', err)
-})
-process.on('uncaughtRejection', (err, promise) => {
-  console.error('Unhandled Rejection', err)
-})
+    const app = express();
+    
+    await databaseConnection();
 
-// event listener when the repository has been connected
-mediator.on('db.ready', (db) => {
-  let rep
-  repository.connect(db)
-    .then(repo => {
-      console.log('Repository Connected. Starting Server')
-      rep = repo
-      return server.start({
-        port: config.serverSettings.port,
-        repo
-      })
+    //const channel = await Creat/home/fernando/projects/nodejs/nodejs_microservice/customer/src/api/index.jseChannel()
+
+    await expressApp(app);
+    
+
+    app.listen(PORT, () => {
+          console.log(`listening to port ${PORT}`);
     })
-    .then(app => {
-      console.log(`Server started succesfully, running on port: ${config.serverSettings.port}.`)
-      app.on('close', () => {
-        rep.disconnect()
-      })
+    .on('error', (err) => {
+        console.log(err);
+        process.exit();
     })
-})
-mediator.on('db.error', (err) => {
-  console.error(err)
-})
+    .on('close', () => {
+        channel.close();
+    })
+    
 
-// we load the connection to the repository
-config.db.connect(config.dbSettings, mediator)
-// init the repository connection, and the event listener will handle the rest
-mediator.emit('boot.ready')
+}
+
+StartServer();
