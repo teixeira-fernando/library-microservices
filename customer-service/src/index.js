@@ -9,8 +9,6 @@ const StartServer = async() => {
     
     await databaseConnection();
 
-    //const channel = await Creat/home/fernando/projects/nodejs/nodejs_microservice/customer/src/api/index.jseChannel()
-
     await expressApp(app);
     
 

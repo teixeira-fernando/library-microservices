@@ -4,9 +4,7 @@ const amqplib = require("amqplib");
 
 const {
   APP_SECRET,
-  EXCHANGE_NAME,
   CUSTOMER_SERVICE,
-  MSG_QUEUE_URL,
 } = require("../config");
 
 //Utility functions

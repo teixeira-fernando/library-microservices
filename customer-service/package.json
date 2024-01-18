@@ -1,16 +1,8 @@
 {
-  "name": "users-service",
+  "name": "customer-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "standard": {
-    "env": [
-      "mocha"
-    ],
-    "ignore": [
-      "mock"
-    ]
-  },
   "scripts": {
     "start": "NODE_ENV=prod node src/index.js",
     "dev": "NODE_ENV=dev nodemon src/index.js",
@@ -32,5 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3",
     "nodemon": "^2.0.7"
+  },
+  "events": {
+    "crash": "sh -c 'lsof -i :${PORT:-8081} -t | xargs kill'"
   }
 }
