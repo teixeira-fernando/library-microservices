@@ -26,7 +26,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.22",
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.0.0"
   },
   "events": {
     "crash": "sh -c 'lsof -i :${PORT:-8081} -t | xargs kill'"
