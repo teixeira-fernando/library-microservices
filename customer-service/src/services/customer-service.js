@@ -1,5 +1,6 @@
 const { CustomerRepository } = require("../database");
 const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } = require('../utils');
+const { ValidationError, APIError } = require("../utils/app-errors");
 
 // All Business logic will be here
 class CustomerService {
@@ -28,18 +29,28 @@ class CustomerService {
 
     async SignUp(userInputs){
         
-        const { email, password, phone } = userInputs;
+        const { name, email, password, phone } = userInputs;
         
+        if (name == null ||  email == null || password == null || phone == null)
+            throw new ValidationError(
+            'Not all required fields were provided. Please check the signup data'
+        );
+
         // create salt
         let salt = await GenerateSalt();
         
         let userPassword = await GeneratePassword(password, salt);
-        
-        const existingCustomer = await this.repository.CreateCustomer({ email, password: userPassword, phone, salt});
-        
-        const token = await GenerateSignature({ email: email, _id: existingCustomer._id});
-        return FormateData({id: existingCustomer._id, token });
 
+        try {
+            const existingCustomer = await this.repository.CreateCustomer({ name, email, password: userPassword, phone, salt});
+            const token = await GenerateSignature({ email: email, _id: existingCustomer._id});
+            return FormateData({id: existingCustomer._id, name: existingCustomer.name, email: email, password:password, phone:phone, token });
+        }
+        catch(error) {
+            throw new APIError(
+                'An error happenend when trying to create a new customer. Please try again', error)
+        }
+               
     }
 
     async AddNewAddress(_id,userInputs){
