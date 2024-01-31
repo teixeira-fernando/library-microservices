@@ -3,9 +3,11 @@ const { PORT } = require('./config');
 const { databaseConnection } = require('./database');
 const expressApp = require('./express-app');
 
+let app
+
 const StartServer = async() => {
 
-    const app = express();
+    app = express();
     
     await databaseConnection();
 
@@ -21,9 +23,10 @@ const StartServer = async() => {
     })
     .on('close', () => {
         channel.close();
-    })
-    
+    }) 
 
 }
 
 StartServer();
+
+module.exports = app
