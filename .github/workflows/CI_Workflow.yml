@@ -25,10 +25,10 @@ jobs:
 
       - name: Test Customer Service - unit tests
         working-directory: ./customer-service
-        run: npm test:unit
+        run: npm run test:unit
 
       - name: Test Customer Service - integration tests
         working-directory: ./customer-service
         run: |
           npm start
-          npm test:integration
+          npm run test:integration
