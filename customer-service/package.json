@@ -6,7 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=dev node src/index.js",
     "dev": "NODE_ENV=dev nodemon src/index.js",
-    "test": "NODE_ENV=dev jest --testEnvironment=node"
+    "test:unit": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/unit-tests/*.js",
+    "test:integration": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/integration-tests/*.js",
+    "test:all": "NODE_ENV=dev jest --testEnvironment=node "
   },
   "keywords": [],
   "author": "",
