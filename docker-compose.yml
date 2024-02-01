@@ -1,0 +1,36 @@
+version: "3"
+services:
+  mongo-db:
+    image: mvertes/alpine-mongo
+    ports:
+      - "27018:27017"
+    container_name: mongo-db
+    volumes:
+      - ./db/:/data/db
+
+  customer:
+    build:
+      dockerfile: Dockerfile
+      context: ./customer-service
+    container_name: customer-service
+    ports:
+      - "8081:8081"
+    restart: always
+    depends_on:
+      - "mongo-db"
+    volumes:
+      - .:/app/
+      - /app/customer-service/node_modules
+    environment:
+        - MONGODB_URI='mongodb://mongo-db/msytt_customer'
+    #env_file:
+    #  - ./customer-service/.env.dev
+
+  nginx-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
+    depends_on:
+      - customer
+    ports:
+      - 80:80
