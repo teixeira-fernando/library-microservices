@@ -9,8 +9,8 @@
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && NODE_ENV=dev node ./dist/index.js",
     "dev": "npm run build && NODE_ENV=dev nodemon --exec babel-node ./src/index.js",
-    "test:unit": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/unit-tests/*.js",
-    "test:integration": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/integration-tests/*.js",
+    "test:unit": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/src/**/unit-tests/*.js",
+    "test:integration": "NODE_ENV=test.CICD jest --testEnvironment=node --testMatch=**/src/**/integration-tests/*.js",
     "test:all": "NODE_ENV=dev jest --testEnvironment=node "
   },
   "keywords": [],
