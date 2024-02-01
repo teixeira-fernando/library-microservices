@@ -27,8 +27,9 @@ jobs:
         working-directory: ./customer-service
         run: npm run test:unit
 
+      - name: Docker-compose - run application
+        run: docker-compose up -d
+        
       - name: Test Customer Service - integration tests
         working-directory: ./customer-service
-        run: |
-          npm start
-          npm run test:integration
+        run: npm run test:integration
