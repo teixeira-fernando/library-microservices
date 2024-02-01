@@ -18,9 +18,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Test Customer Service
+      
+      - name: Install dependencies
         working-directory: ./customer-service
-        run: |
-          npm ci
-          npm test
+        run: npm ci
+
+      - name: Test Customer Service - unit tests
+        working-directory: ./customer-service
+        run: npm run test:unit
+
+      - name: Docker-compose - run application
+        run: docker-compose up -d
+        
+      - name: Test Customer Service - integration tests
+        working-directory: ./customer-service
+        run: npm run test:integration

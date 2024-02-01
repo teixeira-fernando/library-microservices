@@ -13,6 +13,7 @@ class AppError extends Error {
         this.name = name;
         this.statusCode = statusCode;
         this.description = description;
+        this.isOperational = isOperational
         this.errorStack = errorStack;
         this.logError = logingErrorResponse;
         Error.captureStackTrace(this);
@@ -29,14 +30,14 @@ class APIError extends AppError {
 //400
 class BadRequestError extends AppError {
     constructor(description = 'Bad request',logingErrorResponse){
-        super('NOT FOUND', STATUS_CODES.BAD_REQUEST,description, logingErrorResponse);
+        super('NOT FOUND', STATUS_CODES.BAD_REQUEST,description,true, false, logingErrorResponse);
     }
 }
 
 //400
 class ValidationError extends AppError {
     constructor(description = 'Validation Error', errorStack){
-        super('BAD REQUEST', STATUS_CODES.BAD_REQUEST,description, errorStack);
+        super('BAD REQUEST', STATUS_CODES.BAD_REQUEST,description,true, errorStack);
     }
 }
 

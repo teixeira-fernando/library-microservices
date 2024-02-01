@@ -14,7 +14,7 @@ module.exports = (app) => {
             res.json(data);
         }
         catch (error) {
-            return res.status(error.statusCode).json({ error });
+            return res.status(error.statusCode).json({ errorName: error.name, statusCode:error.statusCode, message: error.description });
         }
     });
 
