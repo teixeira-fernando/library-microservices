@@ -28,7 +28,7 @@ jobs:
         run: npm run test:unit
 
       - name: Docker-compose - run application
-        run: docker-compose up -d
+        run: docker-compose up -d --force-recreate --no-deps
         
       - name: Test Customer Service - integration tests
         working-directory: ./customer-service

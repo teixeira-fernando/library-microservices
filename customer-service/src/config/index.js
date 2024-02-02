@@ -9,8 +9,7 @@ if (process.env.NODE_ENV !== "prod") {
 
 module.exports = {
   PORT: process.env.PORT,
-  APPLICATION_URL: process.env.APPLICATION_URL,
-  BASE_URL: process.env.APPLICATION_URL + ':' + process.env.PORT,
+  BASE_URL: process.env.BASE_URL,
   DB_URL: process.env.MONGODB_URI,
   APP_SECRET: process.env.APP_SECRET,
   CUSTOMER_SERVICE: "customer_service"
