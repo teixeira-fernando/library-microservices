@@ -1,56 +1,49 @@
-const mongoose = require('mongoose');
-const { CustomerModel, AddressModel } = require('../models');
+const {CustomerModel, AddressModel} = require('../models');
 
-//Dealing with data base operations
+// Dealing with data base operations
 class CustomerRepository {
+  async CreateCustomer({name, email, password, phone, salt}) {
+    const customer = new CustomerModel({
+      name,
+      email,
+      password,
+      salt,
+      phone,
+      address: [],
+    });
 
-    async CreateCustomer({ name, email, password, phone, salt }){
+    const customerResult = await customer.save();
+    return customerResult;
+  }
 
-        const customer = new CustomerModel({
-            name,
-            email,
-            password,
-            salt,
-            phone,
-            address: []
-        })
+  async CreateAddress({_id, street, postalCode, city, country}) {
+    const profile = await CustomerModel.findById(_id);
 
-        const customerResult = await customer.save();
-        return customerResult;
-    }
-    
-    async CreateAddress({ _id, street, postalCode, city, country}){
-        
-        const profile = await CustomerModel.findById(_id);
-        
-        if(profile){
-            
-            const newAddress = new AddressModel({
-                street,
-                postalCode,
-                city,
-                country
-            })
+    if (profile) {
+      const newAddress = new AddressModel({
+        street,
+        postalCode,
+        city,
+        country,
+      });
 
-            await newAddress.save();
+      await newAddress.save();
 
-            profile.address.push(newAddress);
-        }
-
-        return await profile.save();
+      profile.address.push(newAddress);
     }
 
-    async FindCustomer({ email }){
-        const existingCustomer = await CustomerModel.findOne({ email: email });
-        return existingCustomer;
-    }
+    return await profile.save();
+  }
 
-    async FindCustomerById({ id }){
+  async FindCustomer({email}) {
+    const existingCustomer = await CustomerModel.findOne({email: email});
+    return existingCustomer;
+  }
 
-        const existingCustomer = await CustomerModel.findById(id).populate('address');
-        return existingCustomer;
-    }
-
+  async FindCustomerById({id}) {
+    const existingCustomer = await CustomerModel.findById(id).populate('address');
+    return existingCustomer;
+  }
 }
 
 module.exports = CustomerRepository;
