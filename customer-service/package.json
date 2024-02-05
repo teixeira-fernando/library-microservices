@@ -10,6 +10,7 @@
     "dev": "NODE_ENV=dev nodemon src/index.js",
     "test:unit": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/unit-tests/*.js",
     "test:integration": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/integration-tests/*.js",
+    "test:e2e": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/e2e-tests/*.js",
     "test:all": "NODE_ENV=dev jest --testEnvironment=node "
   },
   "keywords": [],
