@@ -12,11 +12,11 @@ describe('POST /signup', () => {
       'password': '12345',
     });
     expect(response.statusCode).toBe(200);
-    expect(res.body.id).toBeDefined();
-    expect(res.body.name).toBeDefined();
-    expect(res.body.password).toBeDefined();
-    expect(res.body.phone).toBeDefined();
-    expect(res.body.email).toBeDefined();
-    expect(res.body.token).toBeDefined();
+    expect(response.body.id).toBeDefined();
+    expect(response.body.name).toBeDefined();
+    expect(response.body.password).toBeDefined();
+    expect(response.body.phone).toBeDefined();
+    expect(response.body.email).toBeDefined();
+    expect(response.body.token).toBeDefined();
   });
 });
