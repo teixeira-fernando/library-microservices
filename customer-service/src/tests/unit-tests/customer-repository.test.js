@@ -24,6 +24,10 @@ describe('Customer Repository', () => {
 
       const document = await repository.CreateCustomer(user);
       expect(document).toBeDefined();
+      expect(document.id).toBeDefined();
+      expect(document.name).toBeDefined();
+      expect(document.email).toBeDefined();
+      expect(document.phone).toBeDefined();
     });
 
     test('throws an error when missing mandatory information - email', async () => {
@@ -72,6 +76,37 @@ describe('Customer Repository', () => {
       expect(repository.CreateCustomer(user))
           .rejects
           .toThrow(new ValidationError('customer validation failed: password: Path `password` is required.'));
+    });
+  });
+
+  describe('Find Customer', () => {
+    test('successfully find existing customer with valid email', async () => {
+      // arrange
+      const userData = {
+        'name': 'name',
+        'email': 'test@email.com',
+        'phone': '12345678',
+        'password': '12345',
+      };
+
+      await repository.CreateCustomer(userData);
+
+      // act
+      const document = await repository.FindCustomer(userData);
+
+      // assert
+      expect(document).toBeDefined();
+      expect(document.id).toBeDefined();
+      expect(document.name).toBeDefined();
+      expect(document.password).toBeDefined();
+    });
+
+    test('returns nothing when user does not exists', async () => {
+      const email = 'nonexistinguser@email.com';
+
+      const document = await repository.FindCustomer(email);
+
+      expect(document).toBeNull();
     });
   });
 });
