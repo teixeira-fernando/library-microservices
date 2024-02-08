@@ -15,9 +15,13 @@ module.exports = (app) => {
   });
 
   app.post('/login', async (req, res, next) => {
-    const {email, password} = req.body;
-    const {data} = await service.SignIn({email, password});
-    res.json(data);
+    try {
+      const {email, password} = req.body;
+      const {data} = await service.SignIn({email, password});
+      res.json(data);
+    } catch (error) {
+      return res.status(error.statusCode).json({errorName: error.name, statusCode: error.statusCode, message: error.description});
+    }
   });
 
   app.post('/address', UserAuth, async (req, res, next) => {
