@@ -1,6 +1,6 @@
 const CustomerService = require('../../services/customer-service');
 const dbHandler = require('../in-memory-mongo');
-const {ValidationError} = require('../../utils/app-errors');
+const {ValidationError, NotFoundError} = require('../../utils/app-errors');
 
 describe('Customer Service', () => {
   const service = new CustomerService();
@@ -106,11 +106,27 @@ describe('Customer Service', () => {
       const userdoesnotexist = {
         'name': 'name',
         'email': 'nonexistinguser@test.com',
+        'password': '12345',
       };
 
       expect(service.SignIn(userdoesnotexist))
           .rejects
           .toThrow(new Error('Data Not found!'));
+    });
+
+    test('error invalid password', async () => {
+      const user = {
+        'name': 'name',
+        'email': 'test@test.com',
+        'phone': '12345678',
+        'password': '12345',
+      };
+
+      await service.SignUp(user);
+
+      expect(service.SignIn({email: user.email, password: '9999'}))
+          .rejects
+          .toThrow(new NotFoundError('Data Not found!'));
     });
   });
 });

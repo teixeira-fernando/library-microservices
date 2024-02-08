@@ -41,11 +41,19 @@ class ValidationError extends AppError {
   }
 }
 
+// 404
+class NotFoundError extends AppError {
+  constructor(description = 'Not Found Error', errorStack) {
+    super('NOT FOUND', STATUS_CODES.NOT_FOUND, description, true, errorStack);
+  }
+}
+
 
 module.exports = {
   AppError,
   APIError,
   BadRequestError,
   ValidationError,
+  NotFoundError,
   STATUS_CODES,
 };

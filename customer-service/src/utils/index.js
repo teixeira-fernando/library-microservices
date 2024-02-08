@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const {NotFoundError} = require('./app-errors')
 
 const {
   APP_SECRET,
@@ -48,6 +49,6 @@ module.exports.FormateData = (data) => {
   if (data) {
     return {data};
   } else {
-    throw new Error('Data Not found!');
+    throw new NotFoundError('Data Not found!');
   }
 };
