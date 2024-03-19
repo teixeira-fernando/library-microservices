@@ -129,4 +129,37 @@ describe('Customer Service', () => {
           .toThrow(new NotFoundError('Data Not found!'));
     });
   });
+
+
+  describe('Add new address', () => {
+    test('successful signin when user exists and valid credentials are provided', async () => {
+      const user = {
+        'name': 'name',
+        'email': 'test@test.com',
+        'phone': '12345678',
+        'password': '12345',
+      };
+      
+      const address = {
+        'street': 'Street name',
+        'postalCode': '12345',
+        'city': 'City name',
+        'country': 'country name',
+      };
+
+      const {data} = await service.SignUp(user);
+
+      expect(data).toBeDefined();
+      expect(data.id).toBeDefined();
+
+      const addressData = await service.AddNewAddress(data.id, address);
+
+      expect(addressData.data).toBeDefined();
+      expect(addressData.data.id).toBeDefined();
+      expect(addressData.data.address[0].street).toBeDefined();
+      expect(addressData.data.address[0].postalCode).toBeDefined();
+      expect(addressData.data.address[0].city).toBeDefined();
+      expect(addressData.data.address[0].country).toBeDefined();
+    });
+  });
 });
