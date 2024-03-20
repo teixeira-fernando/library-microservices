@@ -40,9 +40,6 @@
     "nodemon": "^3.0.0",
     "supertest": "^6.3.4"
   },
-  "events": {
-    "crash": "sh -c 'lsof -i :${PORT:-8081} -t | xargs kill'"
-  },
   "browser": {
     "crypto": false
   }
