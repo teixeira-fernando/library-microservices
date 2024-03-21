@@ -1,4 +1,5 @@
 const {CustomerModel, AddressModel} = require('../models');
+const {NotFoundError} = require('../../utils/app-errors');
 
 // Dealing with data base operations
 class CustomerRepository {
@@ -30,6 +31,8 @@ class CustomerRepository {
       await newAddress.save();
 
       profile.address.push(newAddress);
+    } else {
+      throw new NotFoundError('User Not Found');
     }
 
     return await profile.save();
