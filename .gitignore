@@ -28,3 +28,7 @@ jspm_packages/
 .env.production.local
 
 db
+
+dist
+
+coverage

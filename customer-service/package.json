@@ -8,6 +8,7 @@
     "lint:fix": "npx eslint src --fix",
     "start": "NODE_ENV=dev node src/index.js",
     "dev": "NODE_ENV=dev nodemon src/index.js",
+    "test:code-coverage": "NODE_ENV=dev jest --testEnvironment=node --testMatch='**/(unit-tests|integration-tests)/**/*.js' --coverage",
     "test:unit": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/unit-tests/**/*.js",
     "test:integration": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/integration-tests/**/*.js",
     "test:e2e": "NODE_ENV=dev jest --testEnvironment=node --testMatch=**/e2e-tests/**/*.js",
