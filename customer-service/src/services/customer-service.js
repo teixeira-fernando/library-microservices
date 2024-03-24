@@ -51,6 +51,12 @@ class CustomerService {
   async AddNewAddress(_id, userInputs) {
     const {street, postalCode, city, country} = userInputs;
 
+    if (street == null || postalCode == null || city == null || country == null) {
+      throw new ValidationError(
+          'Not all required fields were provided. Please check the input data',
+      );
+    }
+
     const addressResult = await this.repository.CreateAddress({_id, street, postalCode, city, country});
 
     return FormateData(addressResult);
