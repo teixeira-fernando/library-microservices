@@ -1,0 +1,35 @@
+name: Continuous Integration - Code Quality
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+
+jobs:
+    code-coverage-and-sonar:
+      runs-on: ubuntu-latest
+  
+      strategy:
+        matrix:
+          node-version: [14.x]
+        
+      steps:
+        - uses: actions/checkout@v4
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v4
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: Install dependencies
+          working-directory: ./customer-service
+          run: npm ci
+  
+        - name: Calculate code coverage
+          working-directory: ./customer-service
+          run: npm run test:code-coverage
+        - name: SonarCloud Scan
+          uses: SonarSource/sonarcloud-github-action@master
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
