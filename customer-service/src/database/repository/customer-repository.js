@@ -31,11 +31,12 @@ class CustomerRepository {
       await newAddress.save();
 
       profile.address.push(newAddress);
+
+      await profile.save();
+      return newAddress;
     } else {
       throw new NotFoundError('User Not Found');
     }
-
-    return await profile.save();
   }
 
   async FindCustomer({email}) {
