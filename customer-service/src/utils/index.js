@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const {NotFoundError} = require('./app-errors')
+const {NotFoundError} = require('./app-errors');
 
 const {
   APP_SECRET,

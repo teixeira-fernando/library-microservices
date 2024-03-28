@@ -53,7 +53,7 @@ describe('Customer API', () => {
         'phone': '12345678',
         'password': '12345678',
       });
-      
+
       const res = await request(app).post('/login').send({
         'email': 'test@test.com',
         'password': '12345678',

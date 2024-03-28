@@ -14,7 +14,7 @@ describe('Customer Service', () => {
     'phone': '12345678',
     'password': '12345',
   };
-  
+
 
   beforeAll(async () => {
     await dbHandler.connect();
@@ -35,7 +35,6 @@ describe('Customer Service', () => {
 
   describe('Add new address', () => {
     test('successfully add address to existing user', async () => {
-      
       const address = {
         'street': 'Street name',
         'postalCode': '12345',
@@ -54,7 +53,6 @@ describe('Customer Service', () => {
     });
 
     test('successfully add multiple address to existing user', async () => {
-      
       const address = {
         'street': 'Street name',
         'postalCode': '12345',
@@ -81,7 +79,6 @@ describe('Customer Service', () => {
     });
 
     test('fails when trying to add an Address to a non existing user', async () => {
-      
       const address = {
         'street': 'Street name',
         'postalCode': '12345',
@@ -96,7 +93,6 @@ describe('Customer Service', () => {
     });
 
     test('fails when trying to add an incomplete Address', async () => {
-      
       const address = {
         'street': 'Street name',
         'postalCode': '12345',
