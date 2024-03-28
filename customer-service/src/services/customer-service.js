@@ -1,6 +1,6 @@
 const {CustomerRepository} = require('../database');
 const {FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword} = require('../utils');
-const {ValidationError, APIError} = require('../utils/app-errors');
+const {ValidationError, APIError, NotFoundError} = require('../utils/app-errors');
 
 // All Business logic will be here
 class CustomerService {
@@ -64,6 +64,9 @@ class CustomerService {
 
   async GetProfile(id) {
     const existingCustomer = await this.repository.FindCustomerById({id});
+    if (existingCustomer == null) {
+      throw new NotFoundError('User Not Found');
+    }
     return FormateData(existingCustomer);
   }
 }
