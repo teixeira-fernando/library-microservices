@@ -1,33 +1,39 @@
 # How to run the application with kubernetes
 
+## Requirements
+
+- Kubectl
+- minikube
+
+## Instructions
 
 Make sure that you have minikube running locally first:
 
-- minikube start
+``` minikube start ```
 
 Make sure that there are no pods running with the command:
 
-- kubectl get pods
+``` kubectl get pods ```
 
 Then, you can deploy the application with:
 
-- cd kubernetes
-- kubectl apply -f .
+``` cd kubernetes ```
+``` kubectl apply -f . ```
 
 After that, you can monitor the pods by running:
 
-- minikube dashboard
+``` minikube dashboard ```
 
 
 Then, to expose a certain service to external access, you can run:
 
-- minikube service ((name-of-the-service))
+``` minikube service ((name-of-the-service)) ```
 
 like for example:
 
-- minikube service customer-service
+``` minikube service customer-service ```
 
-You should get a URL where your service will be exposed, like: "http://192.168.49.2:30261/"
+You should get a URL where your service will be exposed, like: http://192.168.49.2:30261/
 
 Once you have that URL, you can make requests and use your service as you want :)
 
