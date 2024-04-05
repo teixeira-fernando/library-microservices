@@ -37,15 +37,14 @@ describe('Customer API', () => {
         'password': user.password,
       });
       
-      const profileResponse = await request(app).get('/profile/'+res.body.id)
+      const profileResponse = await request(app).get('/profile')
           .set({Authorization: 'Bearer '+res.body.token});
           
-      expect(res.statusCode).toBe(200);
-      expect(res.body.id).toBeDefined();
-      expect(res.body.name).toBeDefined();
-      expect(res.body.phone).toBeDefined();
-      expect(res.body.email).toBeDefined();
-      expect(res.body.token).toBeDefined();
+      expect(profileResponse.statusCode).toBe(200);
+      expect(profileResponse.body._id).toBeDefined();
+      expect(profileResponse.body.name).toBeDefined();
+      expect(profileResponse.body.phone).toBeDefined();
+      expect(profileResponse.body.email).toBeDefined();
     });
   });
 });
