@@ -37,8 +37,4 @@ module.exports = (app) => {
     const {data} = await service.GetProfile({_id});
     res.json(data);
   });
-
-  app.get('/whoami', (req, res, next) => {
-    return res.status(200).json({msg: '/customer : I am Customer Service'});
-  });
 };
